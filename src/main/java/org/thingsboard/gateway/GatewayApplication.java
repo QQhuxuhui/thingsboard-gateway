@@ -1,5 +1,5 @@
 /**
- * Copyright © 2017 The Thingsboard Authors
+ * Copyright © 2023 The Thingsboard Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,12 @@ package org.thingsboard.gateway;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 import java.util.Arrays;
 
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class GatewayApplication {
 
     private static final String SPRING_CONFIG_NAME_KEY = "--spring.config.name";
@@ -46,5 +47,4 @@ public class GatewayApplication {
         }
         return args;
     }
-
 }

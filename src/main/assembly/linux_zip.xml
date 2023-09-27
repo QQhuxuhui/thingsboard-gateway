@@ -1,0 +1,83 @@
+<!--
+
+    Copyright © 2023 The Thingsboard Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<assembly>
+    <id>distribution</id>
+    <formats>
+        <!--指定打包类型：zip、tar、tar.gz、tar.bz2、jar、dir、war-->
+        <format>zip</format>
+    </formats>
+    <!--includeBaseDirectory：指定是否包含打包层目录（比如finalName是output，当值为true，所有文件被放在output目录下，否则直接放在包的根目录下）-->
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <!--配置文件-->
+        <fileSet>
+            <!--:项目构建输出目录，默认为target/.-->
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>\</outputDirectory>
+            <includes>
+                <!--将上一步达成的jar包打入zip文件-->
+                <include>conf\*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}</directory>
+            <outputDirectory>\</outputDirectory>
+            <includes>
+                <include>README*</include>
+                <include>LICENSE*</include>
+                <include>NOTICE*</include>
+            </includes>
+        </fileSet>
+        <!--    脚本打包到根目录    -->
+        <fileSet>
+            <directory>${project.basedir}/script</directory>
+            <outputDirectory>\</outputDirectory>
+            <includes>
+                <include>*</include>
+            </includes>
+        </fileSet>
+        <!--项目本身的jar-->
+        <fileSet>
+            <!--:项目构建输出目录，默认为target/.-->
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>\</outputDirectory>
+            <includes>
+                <!--将上一步达成的jar包打入zip文件-->
+                <include>tb-gateway-distribution.jar</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <!--依赖包是否解压-->
+            <unpack>false</unpack>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>/lib</outputDirectory>
+            <!-- 将scope为runtime的依赖包打包到lib目录下。 -->
+            <scope>runtime</scope>
+            <!--指定jar包，有自己新加的jar包，要在这里指定-->
+            <includes>
+                <include>*:*</include>
+            </includes>
+            <excludes>
+                <exclude>org.thingsboard.common:data</exclude>
+                <exclude>org.thingsboard:netty-mqtt</exclude>
+            </excludes>
+        </dependencySet>
+    </dependencySets>
+</assembly>

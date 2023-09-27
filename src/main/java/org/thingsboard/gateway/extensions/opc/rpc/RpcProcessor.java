@@ -1,5 +1,5 @@
 /**
- * Copyright © 2017 The Thingsboard Authors
+ * Copyright © 2023 The Thingsboard Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ public class RpcProcessor implements RpcCommandListener {
 
     @Override
     public void onRpcCommand(String deviceName, RpcCommandData command) {
-        log.debug("RPC received: device='{}', command={}", deviceName, command);
+        log.info("RPC received: device='{}', command={}", deviceName, command);
 
         OpcUaDevice device = deviceContainer.getDevice(deviceName);
         if (device == null) {
@@ -98,7 +98,7 @@ public class RpcProcessor implements RpcCommandListener {
         try {
             List<WriteValue> request = createWriteRequest(nodeIds, types, values, results);
 
-            log.trace("Writing values to OPC server for tags {}", types.keySet());
+            log.info("Writing values to OPC server for tags {}", types.keySet());
 
             WriteResponse writeResponse = client.write(request).get();
             results.putAll(processWriteResponse(writeResponse, types));

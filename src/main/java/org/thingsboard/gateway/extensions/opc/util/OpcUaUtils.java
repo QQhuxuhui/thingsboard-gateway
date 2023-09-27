@@ -1,5 +1,5 @@
 /**
- * Copyright © 2017 The Thingsboard Authors
+ * Copyright © 2023 The Thingsboard Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package org.thingsboard.gateway.extensions.opc.util;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.stack.core.Identifiers;
+import org.eclipse.milo.opcua.stack.core.NamespaceTable;
 import org.eclipse.milo.opcua.stack.core.types.builtin.ByteString;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DateTime;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
@@ -55,7 +56,9 @@ public class OpcUaUtils {
             for (ReferenceDescription rd : references) {
                 NodeId childId;
                 if (rd.getNodeId().isLocal()) {
-                    childId = rd.getNodeId().local().get();
+                    NamespaceTable namespaceTable = new NamespaceTable();
+                    namespaceTable.addUri(rd.getNodeId().getNamespaceUri());
+                    childId = rd.getNodeId().toNodeId(namespaceTable).orElse(null);
                 } else {
                     log.trace("Ignoring remote node: {}", rd.getNodeId());
                     continue;

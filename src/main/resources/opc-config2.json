@@ -1,0 +1,43 @@
+{
+  "servers": [
+    {
+      "applicationName": "Thingsboard OPC-UA client",
+      "applicationUri": "",
+      "host": "10.90.18.179",
+      "port": 8888,
+      "scanPeriodInSeconds": 10,
+      "timeoutInMillis": 5000,
+      "security": "None",
+      "identity": {
+        "type": "anonymous"
+      },
+      "keystore": {
+        "type": "PKCS12",
+        "location": "example.pfx",
+        "fileContent": "",
+        "password": "secret",
+        "alias": "gateway",
+        "keyPassword": "secret"
+      },
+      "mapping": [
+        {
+          "deviceNodePattern": "通道 2.humidity1",
+          "deviceNamePattern": "humidity1",
+          "attributes": [],
+          "timeseries": [
+            {
+              "key": "TAG0",
+              "type": "double",
+              "value": "${TAG0}"
+            },
+            {
+              "key": "TAG1",
+              "type": "double",
+              "value": "${TAG1}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

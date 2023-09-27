@@ -1,0 +1,57 @@
+<!--
+
+    Copyright © 2023 The Thingsboard Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<assembly>
+    <id>distribution</id>
+    <formats>
+        <!--指定打包类型：zip、tar、tar.gz、tar.bz2、jar、dir、war-->
+        <format>jar</format>
+    </formats>
+    <!--includeBaseDirectory：指定是否包含打包层目录（比如finalName是output，当值为true，所有文件被放在output目录下，否则直接放在包的根目录下）-->
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>${project.basedir}</directory>
+            <outputDirectory>\</outputDirectory>
+            <includes>
+                <include>README*</include>
+                <include>LICENSE*</include>
+                <include>NOTICE*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <!--${project.build.outputDirectory}:项目主代码编译输出目录，默认为target/classes/-->
+            <directory>${project.build.OutputDirectory}\org</directory>
+            <outputDirectory>\org</outputDirectory>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <!--依赖包是否解压-->
+            <unpack>true</unpack>
+            <useProjectArtifact>false</useProjectArtifact>
+            <!--<directory>${project.basedir}\src\main\lib\${process.name}</directory>-->
+            <outputDirectory>\</outputDirectory>
+            <!-- 将scope为runtime的依赖包打包到lib目录下。 -->
+            <scope>runtime</scope>
+            <!--指定jar包，有自己新加的jar包，要在这里指定-->
+            <excludes>
+                <exclude>*:*</exclude>
+            </excludes>
+        </dependencySet>
+    </dependencySets>
+</assembly>

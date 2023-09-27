@@ -1,5 +1,5 @@
 #
-# Copyright © 2017 The Thingsboard Authors
+# Copyright © 2023 The Thingsboard Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,8 +36,8 @@ gateways:
         path: storage
         bufferSize: 1000
       connection:
-        host: "${GATEWAY_HOST:localhost}"
-        port: 1883
+        host: "${GATEWAY_HOST:10.90.18.27}"
+        port: 31390
         retryInterval: 3000
         maxInFlight: 1000
         security:
@@ -45,6 +45,6 @@ gateways:
       remoteConfiguration: false
       extensions:
         -
-          id: "modbus"
-          type: "MODBUS"
-          extensionConfiguration: modbusTest-config.json
+          id: "opc ua"
+          type: "OPC UA"
+          extensionConfiguration: opc-config1.json

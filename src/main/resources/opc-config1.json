@@ -1,0 +1,38 @@
+{
+  "servers": [
+    {
+      "applicationName": "Thingsboard OPC-UA client",
+      "applicationUri": "",
+      "host": "localhost",
+      "port": 49320,
+      "scanPeriodInSeconds": 10,
+      "timeoutInMillis": 5000,
+      "security": "None",
+      "identity": {
+        "type": "anonymous"
+      },
+      "keystore": {
+        "type": "PKCS12",
+        "location": "example.pfx",
+        "fileContent": "",
+        "password": "secret",
+        "alias": "gateway",
+        "keyPassword": "secret"
+      },
+      "mapping": [
+        {
+          "deviceNodePattern": "服务端.设备 1",
+          "deviceNamePattern": "设备 1",
+          "attributes": [],
+          "timeseries": [
+            {
+              "key": "tt1",
+              "type": "LONG",
+              "value": "${tt1}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
